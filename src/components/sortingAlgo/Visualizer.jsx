@@ -4,7 +4,7 @@ import SpeedSlider from '../SpeedSlider.jsx'
 import CodePanel from '../visualizer/CodePanel'
 import { useStepPlayback } from '../visualizer/useStepPlayback'
 import ComplexityCard from '../ComplexityCard'
-
+import ComplexityGraph from '../ComplexityGraph'
 import * as bubble from '../../algorithms/sorting/bubbleSortSteps'
 import * as selection from '../../algorithms/sorting/selectionSortSteps'
 import * as insertion from '../../algorithms/sorting/insertionSortSteps'
@@ -269,7 +269,7 @@ export default function Visualizer() {
               </div>
 
               <ComplexityCard algorithm={selectedAlgorithm} />
-
+              <ComplexityGraph />
               <div className="grid gap-4 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
                 <div className="rounded-2xl border border-slate-700/80 bg-slate-900/70 p-4 sm:p-5 shadow-xl">
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-400/80">
