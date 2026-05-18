@@ -12,19 +12,23 @@ export const MenuSelectNodeSearch = ({ node, setNode }) => {
         Starting Node
       </h3>
       <div className="relative">
-        <Tooltip content="Choose the starting node for graph traversal" position="top" className="w-full">
-        <select
-          value={node ?? ''}
-          onChange={handleChange}
-          className="w-full bg-slate-800 text-white text-sm border border-slate-700 rounded-xl pl-4 pr-10 py-3 transition duration-300 focus:outline-none focus:border-cyan-500 hover:border-slate-500 shadow-sm appearance-none cursor-pointer"
+        <Tooltip
+          content="Choose the starting node for graph traversal"
+          position="top"
+          className="w-full"
         >
-          <option value="">Choose a Starting Node</option>
-          {Array.from({ length: 15 }, (_, i) => i + 1).map((element) => (
-            <option key={element} value={element}>
-              {element}
-            </option>
-          ))}
-        </select>
+          <select
+            value={node ?? ''}
+            onChange={handleChange}
+            className="w-full bg-slate-800 text-white text-sm border border-slate-700 rounded-xl pl-4 pr-10 py-3 transition duration-300 focus:outline-none focus:border-cyan-500 hover:border-slate-500 shadow-sm appearance-none cursor-pointer"
+          >
+            <option value="">Choose a Starting Node</option>
+            {Array.from({ length: 15 }, (_, i) => i + 1).map((element) => (
+              <option key={element} value={element}>
+                {element}
+              </option>
+            ))}
+          </select>
         </Tooltip>
         <svg
           xmlns="http://www.w3.org/2000/svg"

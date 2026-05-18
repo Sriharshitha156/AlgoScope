@@ -35,21 +35,29 @@ export const MenuSelectAlgorithm = ({ algorithm, setAlgorithm }) => {
         Algorithm
       </h3>
       <div className="flex flex-col gap-2">
-        <Tooltip content="Select Breadth-First Search" position="top" className="w-full">
-        <button
-          onClick={() => handleSelect('bfs')}
-          className={getButtonClass('bfs')}
+        <Tooltip
+          content="Select Breadth-First Search"
+          position="top"
+          className="w-full"
         >
-          Breadth-First Search (BFS)
-        </button>
+          <button
+            onClick={() => handleSelect('bfs')}
+            className={getButtonClass('bfs')}
+          >
+            Breadth-First Search (BFS)
+          </button>
         </Tooltip>
-        <Tooltip content="Select Depth-First Search" position="top" className="w-full">
-        <button
-          onClick={() => handleSelect('dfs')}
-          className={getButtonClass('dfs')}
+        <Tooltip
+          content="Select Depth-First Search"
+          position="top"
+          className="w-full"
         >
-          Depth-First Search (DFS)
-        </button>
+          <button
+            onClick={() => handleSelect('dfs')}
+            className={getButtonClass('dfs')}
+          >
+            Depth-First Search (DFS)
+          </button>
         </Tooltip>
       </div>
     </div>

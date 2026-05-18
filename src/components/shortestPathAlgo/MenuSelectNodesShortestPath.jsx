@@ -33,36 +33,44 @@ export const MenuSelectNodesShortestPath = ({
       </h3>
       <div className="space-y-3">
         <div className="relative">
-          <Tooltip content="Choose the source node" position="top" className="w-full">
-          <select
-            value={source ?? ''}
-            onChange={(e) => setSource(e.target.value || null)}
-            className="w-full bg-slate-800 text-white text-sm border border-slate-700 rounded-xl pl-4 pr-10 py-3 transition duration-300 focus:outline-none focus:border-cyan-500 hover:border-slate-500 shadow-sm appearance-none cursor-pointer"
+          <Tooltip
+            content="Choose the source node"
+            position="top"
+            className="w-full"
           >
-            <option value="">Choose Source</option>
-            {nodeOptions.map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
+            <select
+              value={source ?? ''}
+              onChange={(e) => setSource(e.target.value || null)}
+              className="w-full bg-slate-800 text-white text-sm border border-slate-700 rounded-xl pl-4 pr-10 py-3 transition duration-300 focus:outline-none focus:border-cyan-500 hover:border-slate-500 shadow-sm appearance-none cursor-pointer"
+            >
+              <option value="">Choose Source</option>
+              {nodeOptions.map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
           </Tooltip>
           <ChevronIcon />
         </div>
         <div className="relative">
-          <Tooltip content="Choose the target node" position="top" className="w-full">
-          <select
-            value={target ?? ''}
-            onChange={(e) => setTarget(e.target.value || null)}
-            className="w-full bg-slate-800 text-white text-sm border border-slate-700 rounded-xl pl-4 pr-10 py-3 transition duration-300 focus:outline-none focus:border-cyan-500 hover:border-slate-500 shadow-sm appearance-none cursor-pointer"
+          <Tooltip
+            content="Choose the target node"
+            position="top"
+            className="w-full"
           >
-            <option value="">Choose Target</option>
-            {nodeOptions.map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
+            <select
+              value={target ?? ''}
+              onChange={(e) => setTarget(e.target.value || null)}
+              className="w-full bg-slate-800 text-white text-sm border border-slate-700 rounded-xl pl-4 pr-10 py-3 transition duration-300 focus:outline-none focus:border-cyan-500 hover:border-slate-500 shadow-sm appearance-none cursor-pointer"
+            >
+              <option value="">Choose Target</option>
+              {nodeOptions.map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
           </Tooltip>
           <ChevronIcon />
         </div>
