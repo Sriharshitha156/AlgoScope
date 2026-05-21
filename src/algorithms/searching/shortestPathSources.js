@@ -597,10 +597,9 @@ vector<vector<int>> floyd_warshall(int V, vector<vector<int>>& graph) {
     },
     grid: {
       javascript: {
-        code: `function floydWarshall(grid, start) {
+        code: `function floydWarshall(grid) {
   if (!Array.isArray(grid) || grid.length === 0 || !Array.isArray(grid[0]) || grid[0].length === 0) return [];
   const R = grid.length, C = grid[0].length, N = R * C;
-  if (start && (start.r < 0 || start.r >= R || start.c < 0 || start.c >= C || grid[start.r][start.c] === 1)) return [];
   const dist = Array.from({ length: N }, () => Array(N).fill(Infinity));
   for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {
     if (grid[r][c] === 1) continue;
