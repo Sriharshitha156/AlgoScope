@@ -1,6 +1,8 @@
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+
+const MotionLink = motion(Link)
 
 export default function AlgoCard({
   title,
@@ -9,8 +11,6 @@ export default function AlgoCard({
   image,
   imageAlt,
 }) {
-  const navigate = useNavigate()
-
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -24,9 +24,9 @@ export default function AlgoCard({
   }
 
   return (
-    <motion.button
-     onClick={() => navigate(link)}
-      className="group w-full rounded-2xl p-6 bg-neutral-900/60 backdrop-blur-md border border-neutral-800/80 hover:-translate-y-1.5 hover:border-neutral-700 hover:shadow-[0_10px_30px_-10px_rgba(255,255,255,0.05)] transition-all duration-300 ease-out text-left"
+    <MotionLink
+      to={link}
+      className="group block w-full rounded-2xl p-6 bg-neutral-900/60 backdrop-blur-md border border-neutral-800/80 hover:-translate-y-1.5 hover:border-neutral-700 hover:shadow-[0_10px_30px_-10px_rgba(255,255,255,0.05)] transition-all duration-300 ease-out text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/50"
       variants={cardVariants}
       whileHover={{ y: -5 }}
     >
@@ -59,6 +59,6 @@ export default function AlgoCard({
 
         <ArrowRight className="w-5 h-5 text-cyan-400 transition-transform duration-300 group-hover:translate-x-1.5" />
       </div>
-    </motion.button>
+    </MotionLink>
   )
 }
