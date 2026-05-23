@@ -407,7 +407,6 @@ export const MathSoloVisualizer = () => {
         {algo === 'gcd' && (
           <CanvasGCD
             currentStep={currentStep}
-            hasSteps={hasSteps}
             inputA={Number(gcdA)}
             inputB={Number(gcdB)}
           />
@@ -415,7 +414,6 @@ export const MathSoloVisualizer = () => {
         {algo === 'expo' && (
           <CanvasFastExpo
             currentStep={currentStep}
-            hasSteps={hasSteps}
             inputBase={Number(expoBase)}
             inputExp={Number(expoExp)}
           />
@@ -423,7 +421,6 @@ export const MathSoloVisualizer = () => {
         {algo === 'bits' && (
           <CanvasBitManip
             currentStep={currentStep}
-            hasSteps={hasSteps}
             inputA={Number(bitA)}
             inputB={Number(bitB)}
             operation={bitOp}
@@ -432,7 +429,6 @@ export const MathSoloVisualizer = () => {
         {algo === 'sieve' && (
           <CanvasSieve
             currentStep={currentStep}
-            hasSteps={hasSteps}
             inputLimit={Number(sieveLimit)}
           />
         )}

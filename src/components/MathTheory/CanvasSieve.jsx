@@ -1,11 +1,10 @@
 import React from 'react'
 import StatusDisplay from '../StatusDisplay'
 
-export const CanvasSieve = ({ currentStep, hasSteps, inputLimit }) => {
+export const CanvasSieve = ({ currentStep, inputLimit }) => {
   const n = inputLimit ?? 30
   // array represents isPrime: boolean array of size n+1
   const isPrime = currentStep?.array ?? new Array(n + 1).fill(true)
-  const activeIndices = currentStep?.indices ?? []
 
   const iVar = currentStep?.variables?.i ?? null
   const jVar = currentStep?.variables?.j ?? null
