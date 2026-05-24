@@ -147,4 +147,10 @@ export const complexityMap = {
     worst: 'O(N log log N)',
     space: 'O(N)',
   },
+  fibonacci: {
+    best: 'O(2^N)',
+    average: 'O(2^N)',
+    worst: 'O(2^N)',
+    space: 'O(N)',
+  },
 }
