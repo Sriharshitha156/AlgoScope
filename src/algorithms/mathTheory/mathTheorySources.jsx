@@ -576,7 +576,13 @@ export const fibonacciSources = {
 }
 
 console.log(fib(6)); // 8`,
-    lineMap: { start: 1, baseCase: 2, returnBase: 3, recursiveCall: 5, result: 5 },
+    lineMap: {
+      start: 1,
+      baseCase: 2,
+      returnBase: 3,
+      recursiveCall: 5,
+      result: 5,
+    },
   },
   python: {
     code: `def fib(n):
@@ -585,7 +591,13 @@ console.log(fib(6)); // 8`,
     return fib(n - 1) + fib(n - 2)
 
 print(fib(6))  # 8`,
-    lineMap: { start: 1, baseCase: 2, returnBase: 3, recursiveCall: 4, result: 4 },
+    lineMap: {
+      start: 1,
+      baseCase: 2,
+      returnBase: 3,
+      recursiveCall: 4,
+      result: 4,
+    },
   },
   cpp: {
     code: `#include <iostream>
@@ -601,7 +613,13 @@ int fib(int n) {
 int main() {
     cout << fib(6); // 8
 }`,
-    lineMap: { start: 4, baseCase: 5, returnBase: 6, recursiveCall: 8, result: 8 },
+    lineMap: {
+      start: 4,
+      baseCase: 5,
+      returnBase: 6,
+      recursiveCall: 8,
+      result: 8,
+    },
   },
   java: {
     code: `public class Fibonacci {
@@ -616,7 +634,13 @@ int main() {
         System.out.println(fib(6)); // 8
     }
 }`,
-    lineMap: { start: 2, baseCase: 3, returnBase: 4, recursiveCall: 6, result: 6 },
+    lineMap: {
+      start: 2,
+      baseCase: 3,
+      returnBase: 4,
+      recursiveCall: 6,
+      result: 6,
+    },
   },
 }
 
@@ -625,4 +649,3 @@ export const getFibonacciSource = (language) =>
 
 export const resolveFibonacciLine = (language, lineKey) =>
   (fibonacciSources[language] ?? fibonacciSources.javascript).lineMap?.[lineKey]
-

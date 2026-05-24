@@ -9,7 +9,10 @@ const getSpiralSquares = (count) => {
   const squares = []
   if (count <= 0) return { squares, viewBox: '0 0 100 100' }
 
-  let xMin = 0, xMax = 1, yMin = 0, yMax = 1
+  let xMin = 0,
+    xMax = 1,
+    yMin = 0,
+    yMax = 1
 
   // k = 1 (First square)
   squares.push({
@@ -29,7 +32,8 @@ const getSpiralSquares = (count) => {
     // Safety check for array bounds
     const size = F[k] || 1
     const dir = (k - 2) % 4 // 0 = Right, 1 = Bottom, 2 = Left, 3 = Top
-    let x = 0, y = 0
+    let x = 0,
+      y = 0
 
     if (dir === 0) {
       // Place Right
@@ -178,7 +182,8 @@ export const CanvasFibonacci = ({ currentStep, inputLimit }) => {
   }, [activePath, treeState])
 
   const activeStackSize = useMemo(() => {
-    return Object.values(treeState).filter((node) => node.state === 'active').length
+    return Object.values(treeState).filter((node) => node.state === 'active')
+      .length
   }, [treeState])
 
   const latestValComputed = useMemo(() => {
@@ -344,7 +349,10 @@ export const CanvasFibonacci = ({ currentStep, inputLimit }) => {
                 className="w-full"
               >
                 <div className="w-full overflow-x-auto overflow-y-hidden select-none">
-                  <svg viewBox="0 0 800 350" className="w-full min-w-[700px] h-[350px]">
+                  <svg
+                    viewBox="0 0 800 350"
+                    className="w-full min-w-[700px] h-[350px]"
+                  >
                     {/* Render connection branch lines */}
                     {treeLinks.map((link) => (
                       <line
@@ -359,7 +367,10 @@ export const CanvasFibonacci = ({ currentStep, inputLimit }) => {
 
                     {/* Render node circles */}
                     {treeNodes.map((node) => {
-                      const stateNode = treeState[node.id] || { state: 'inactive', val: null }
+                      const stateNode = treeState[node.id] || {
+                        state: 'inactive',
+                        val: null,
+                      }
                       const colors = getNodeColors(stateNode.state)
                       const isLeaf = node.n <= 1
 

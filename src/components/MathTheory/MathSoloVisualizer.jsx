@@ -109,7 +109,8 @@ export const MathSoloVisualizer = () => {
     if (algo === 'expo')
       return resolveFastExpoLine(language, currentStep.lineKey)
     if (algo === 'sieve') return resolveSieveLine(language, currentStep.lineKey)
-    if (algo === 'fibonacci') return resolveFibonacciLine(language, currentStep.lineKey)
+    if (algo === 'fibonacci')
+      return resolveFibonacciLine(language, currentStep.lineKey)
     if (algo === 'bits')
       return resolveBitManipLine(language, currentStep.lineKey)
     return undefined

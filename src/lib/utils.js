@@ -32,7 +32,7 @@ export const createStep = ({
   message,
   variables,
   duration,
-  ...rest
+  ...rest,
 })
 
 /**

@@ -442,10 +442,10 @@ export function generateSieveSteps(n) {
 
 export function generateFibonacciSteps(n) {
   const steps = []
-  
+
   // 1. Pre-build the entire tree structure skeleton
   const treeState = {}
-  
+
   function initTree(valN, path = 'root', parentPath = null) {
     treeState[path] = {
       id: path,
@@ -453,9 +453,9 @@ export function generateFibonacciSteps(n) {
       val: null,
       state: 'inactive',
       parent: parentPath,
-      children: []
+      children: [],
     }
-    
+
     if (valN > 1) {
       const leftPath = path + '-L'
       const rightPath = path + '-R'
@@ -464,9 +464,9 @@ export function generateFibonacciSteps(n) {
       initTree(valN - 2, rightPath, path)
     }
   }
-  
+
   initTree(n)
-  
+
   const getTreeSnapshot = () => {
     const snapshot = {}
     for (const key in treeState) {
@@ -474,9 +474,9 @@ export function generateFibonacciSteps(n) {
     }
     return snapshot
   }
-  
+
   let maxNResolved = 0
-  
+
   // Start step
   steps.push(
     createStep({
@@ -490,11 +490,11 @@ export function generateFibonacciSteps(n) {
       duration: 800,
     })
   )
-  
+
   function recurse(valN, path = 'root') {
     // Set node to active
     treeState[path].state = 'active'
-    
+
     steps.push(
       createStep({
         lineKey: 'baseCase',
@@ -507,12 +507,12 @@ export function generateFibonacciSteps(n) {
         duration: 800,
       })
     )
-    
+
     if (valN <= 1) {
       treeState[path].state = 'resolved'
       treeState[path].val = valN
       maxNResolved = Math.max(maxNResolved, valN)
-      
+
       steps.push(
         createStep({
           lineKey: 'returnBase',
@@ -527,10 +527,10 @@ export function generateFibonacciSteps(n) {
       )
       return valN
     }
-    
+
     // Recursive left call: fib(n-1)
     const leftVal = recurse(valN - 1, path + '-L')
-    
+
     // Back to current node
     treeState[path].state = 'active'
     steps.push(
@@ -545,34 +545,41 @@ export function generateFibonacciSteps(n) {
         duration: 800,
       })
     )
-    
+
     // Recursive right call: fib(n-2)
     const rightVal = recurse(valN - 2, path + '-R')
-    
+
     // Combine results
     const result = leftVal + rightVal
     treeState[path].state = 'resolved'
     treeState[path].val = result
     maxNResolved = Math.max(maxNResolved, valN)
-    
+
     steps.push(
       createStep({
         lineKey: 'recursiveCall',
         type: 'swap',
         message: `Combine: fib(${valN}) = fib(${valN - 1}) + fib(${valN - 2}) = ${leftVal} + ${rightVal} = ${result}`,
-        variables: { n: valN, leftVal, rightVal, result, activeNode: path, maxNResolved },
+        variables: {
+          n: valN,
+          leftVal,
+          rightVal,
+          result,
+          activeNode: path,
+          maxNResolved,
+        },
         treeState: getTreeSnapshot(),
         activePath: path,
         spiralCount: maxNResolved,
         duration: 950,
       })
     )
-    
+
     return result
   }
-  
+
   const finalResult = recurse(n)
-  
+
   // Final step
   steps.push(
     createStep({
@@ -586,7 +593,6 @@ export function generateFibonacciSteps(n) {
       duration: 1000,
     })
   )
-  
+
   return steps
 }
-
