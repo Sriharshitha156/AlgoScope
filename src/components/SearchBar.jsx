@@ -111,6 +111,31 @@ const ALGORITHMS = [
     ],
   },
   {
+    id: 'stringAlgo',
+    name: 'String Algorithms',
+    category: 'String',
+    route: '/string-algorithms',
+  },
+
+  {
+    id: 'kmp',
+    name: 'KMP Algorithm (Knuth-Morris-Pratt)',
+    category: 'String',
+    route: '/string-algorithms?algo=kmp',
+  },
+  {
+    id: 'rabinkarp',
+    name: 'Rabin-Karp Algorithm',
+    category: 'String',
+    route: '/string-algorithms?algo=rabinkarp',
+  },
+  {
+    id: 'zalgorithm',
+    name: 'Z-Algorithm',
+    category: 'String',
+    route: '/string-algorithms?algo=zalgorithm',
+  },
+  {
     id: 'mooreVoting',
     name: "Moore's Voting Algorithm",
     category: 'Array Search',
