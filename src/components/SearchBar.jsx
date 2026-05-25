@@ -111,6 +111,31 @@ const ALGORITHMS = [
     ],
   },
   {
+    id: 'stringAlgo',
+    name: 'String Algorithms',
+    category: 'String',
+    route: '/string-algorithms',
+  },
+
+  {
+    id: 'kmp',
+    name: 'KMP Algorithm (Knuth-Morris-Pratt)',
+    category: 'String',
+    route: '/string-algorithms?algo=kmp',
+  },
+  {
+    id: 'rabinkarp',
+    name: 'Rabin-Karp Algorithm',
+    category: 'String',
+    route: '/string-algorithms?algo=rabinkarp',
+  },
+  {
+    id: 'zalgorithm',
+    name: 'Z-Algorithm',
+    category: 'String',
+    route: '/string-algorithms?algo=zalgorithm',
+  },
+  {
     id: 'mooreVoting',
     name: "Moore's Voting Algorithm",
     category: 'Array Search',
@@ -142,6 +167,22 @@ const ALGORITHMS = [
     category: 'General',
     route: '/about',
   },
+  // Backtracking
+  {
+    id: 'nqueens',
+    name: 'Backtracking',
+    category: 'Backtracking',
+    route: '/backtracking?algo=nqueens',
+    keywords: [
+      'backtracking',
+      'n queens',
+      'nqueens',
+      'sudoku',
+      'recursion',
+      'constraint',
+    ],
+  },
+
   // Math Theory
   {
     id: 'mathTheory',

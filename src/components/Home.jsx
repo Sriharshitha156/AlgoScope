@@ -73,11 +73,18 @@ const ALGORITHMS = [
     color: 'theme-card border-rose-500/30 hover:border-rose-400',
     link: '/backtracking',
   },
+  {
+    title: 'String Algorithms',
+    description:
+      'KMP, Rabin-Karp, and Z-Algorithm — pattern matching visualized step by step.',
+    color: 'theme-card border-violet-500/30 hover:border-violet-400',
+    link: '/string-algorithms',
+  },
 ]
 
 export const Home = () => {
   return (
-    <div className="theme-home relative min-h-screen w-full overflow-hidden selection:bg-cyan-500/30">
+    <div className="theme-home relative min-h-screen w-full overflow-x-hidden selection:bg-cyan-500/30">
       <Hero />
 
       <div className="relative z-10 px-4 pb-16">
@@ -95,7 +102,7 @@ export const Home = () => {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={{ once: true, amount: 0.1 }}
           >
             {ALGORITHMS.map((algo, index) => (
               <AlgoCard

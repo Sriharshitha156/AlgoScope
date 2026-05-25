@@ -49,11 +49,7 @@ const ComplexityCard = ({ algorithm, compact = false }) => {
             >
               {label}
             </p>
-            <p
-              className={`break-words font-semibold leading-snug text-white ${
-                compact ? 'text-sm' : 'text-sm'
-              }`}
-            >
+            <p className="break-words font-semibold leading-snug text-sm text-white">
               {current[key]}
             </p>
           </div>
