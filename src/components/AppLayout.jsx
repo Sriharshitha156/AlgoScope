@@ -3,10 +3,11 @@ import { Navbar } from './Navbar'
 import Footer from './Footer'
 import { motion } from 'framer-motion'
 import SeoHead from './SeoHead'
+import ScrollToTopButton from './ScrollToTopButton'
 import Breadcrumbs from './Breadcrumbs'
 
 const Background = () => (
-  <div className="absolute inset-0 z-0 pointer-events-none fixed">
+  <div className="fixed inset-0 z-0 pointer-events-none">
     <div className="theme-grid absolute inset-0 bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
   </div>
 )
@@ -26,12 +27,15 @@ export default function AppLayout({ children, showBackground = true }) {
       <div className="flex-1 flex flex-col gap-4 p-2 sm:p-4 z-10">
         <Navbar />
 
+        <div className="flex-1">{children}</div>
         <Breadcrumbs />
 
         <div className="flex-1">{children}</div>
 
         <Footer />
       </div>
+
+      <ScrollToTopButton />
     </motion.div>
   )
 }
