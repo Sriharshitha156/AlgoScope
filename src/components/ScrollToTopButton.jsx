@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useTheme } from '../context/useTheme'
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const [isDark, setIsDark] = useState(false)
+  const { isDark } = useTheme()
 
   useEffect(() => {
-    // Check initial mode
-    setIsDark(document.documentElement.classList.contains('dark'))
-
     const toggleVisibility = () => {
       if (window.scrollY > 300) {
         setIsVisible(true)
@@ -16,20 +14,9 @@ const ScrollToTopButton = () => {
       }
     }
 
-    // Listen for theme change toggles on the HTML element
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    })
-    
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-
     window.addEventListener('scroll', toggleVisibility)
     return () => {
       window.removeEventListener('scroll', toggleVisibility)
-      observer.disconnect()
     }
   }, [])
 
@@ -48,7 +35,7 @@ const ScrollToTopButton = () => {
           type="button"
           style={{
             // Hardcoded hex values to guarantee the colors match your mockup image perfectly
-            backgroundColor: isDark ? '#0f285d' : '#6366f1', 
+            backgroundColor: isDark ? '#0f285d' : '#6366f1',
             color: '#ffffff', // Ensures the arrow is always crisp white
             width: '48px',
             height: '48px',
