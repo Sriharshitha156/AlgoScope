@@ -66,6 +66,13 @@ describe('calculateStepDelay', () => {
     expect(calculateStepDelay(undefined, 1, 120)).toBe(700)
     expect(calculateStepDelay(null, 1, 120)).toBe(700)
   })
+
+  it('gracefully handles non-numeric and NaN parameters', () => {
+    expect(calculateStepDelay('1000', '2', '120')).toBe(500)
+    expect(calculateStepDelay(NaN, 1, 120)).toBe(700)
+    expect(calculateStepDelay(1000, NaN, 120)).toBe(1000)
+    expect(calculateStepDelay(1000, 2, NaN)).toBe(500)
+  })
 })
 
 describe('generateRandomArray', () => {
@@ -86,6 +93,28 @@ describe('generateRandomArray', () => {
 
   it('returns an empty array for zero length', () => {
     expect(generateRandomArray(0, 1, 5)).toEqual([])
+  })
+
+  it('handles negative lengths by returning an empty array', () => {
+    expect(generateRandomArray(-5, 1, 10)).toEqual([])
+  })
+
+  it('handles range inversion (min > max) by swapping bounds', () => {
+    const result = generateRandomArray(10, 20, 10)
+    expect(result).toHaveLength(10)
+    expect(result.every((n) => n >= 10 && n <= 20)).toBe(true)
+  })
+
+  it('gracefully parses string representations of numbers', () => {
+    const result = generateRandomArray('3', '5', '8')
+    expect(result).toHaveLength(3)
+    expect(result.every((n) => n >= 5 && n <= 8)).toBe(true)
+  })
+
+  it('handles NaN and non-finite parameters gracefully', () => {
+    expect(generateRandomArray(NaN, 1, 5)).toEqual([])
+    const result = generateRandomArray(5, NaN, NaN)
+    expect(result).toHaveLength(5)
   })
 })
 
