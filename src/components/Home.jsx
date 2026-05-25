@@ -69,7 +69,7 @@ const ALGORITHMS = [
   {
     title: 'Backtracking',
     description:
-      'N-Queens and Sudoku Solver — watch the algorithm place, conflict, and undo in real time.',
+      'N-Queens, Sudoku Solver, and Tower of Hanoi with step-by-step recursion.',
     color: 'theme-card border-rose-500/30 hover:border-rose-400',
     link: '/backtracking',
   },

@@ -123,6 +123,12 @@ export const complexityMap = {
     worst: 'O(9^M)',
     space: 'O(M)',
   },
+  hanoi: {
+    best: 'O(2^N)',
+    average: 'O(2^N)',
+    worst: 'O(2^N)',
+    space: 'O(N)',
+  },
   gcd: {
     best: 'O(log min(a, b))',
     average: 'O(log min(a, b))',
