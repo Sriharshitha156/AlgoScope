@@ -185,12 +185,12 @@ const generateDijkstraSteps = (grid) => {
 
   const path = []
   let current = endNode
-  while (current && parent.has(current)) {
+  while (current) {
     path.unshift(current)
+    if (current === startNode) break
     current = parent.get(current)
   }
-  const hasValidPath = path.length > 0 && path[0] === startNode
-  const finalPath = hasValidPath ? [startNode, ...path] : []
+  const finalPath = path[0] === startNode ? path : []
   const totalRelaxations = steps.filter((s) => s.type === 'relax').length
 
   return {
@@ -217,6 +217,7 @@ const generateBellmanFordSteps = (grid) => {
   distances.set(startNode, 0)
 
   let totalRelaxations = 0
+  let relaxationAttemptCount = 0
   const visitedNodesSet = new Set()
 
   for (let i = 0; i < allNodes.length - 1; i++) {
@@ -232,9 +233,10 @@ const generateBellmanFordSteps = (grid) => {
           relaxed = true
           totalRelaxations++
           visitedNodesSet.add(v)
+          relaxationAttemptCount++
           const shouldRecordStep =
-            steps.length % STEP_BATCHING.BELLMAN_FORD_STEP_MODULO === 0 ||
-            steps.length < 10
+            relaxationAttemptCount % STEP_BATCHING.BELLMAN_FORD_STEP_MODULO ===
+              0 || relaxationAttemptCount < 10
           if (shouldRecordStep) {
             steps.push({
               type: 'relax',
@@ -252,12 +254,12 @@ const generateBellmanFordSteps = (grid) => {
 
   const path = []
   let current = endNode
-  while (current && parent.has(current)) {
+  while (current) {
     path.unshift(current)
+    if (current === startNode) break
     current = parent.get(current)
   }
-  const hasValidPath = path.length > 0 && path[0] === startNode
-  const finalPath = hasValidPath ? [startNode, ...path] : []
+  const finalPath = path[0] === startNode ? path : []
 
   return {
     steps,
@@ -308,14 +310,14 @@ const generateFloydWarshallSteps = (grid) => {
           next[i][j] = next[i][k]
           matrixUpdates++
 
+          const node1 = allNodes[i]
+          const node2 = allNodes[j]
+          if (node1 && !node1.isWall) visitedNodesSet.add(node1)
+          if (node2 && !node2.isWall) visitedNodesSet.add(node2)
           const shouldRecordStep =
             matrixUpdates % STEP_BATCHING.FLOYD_WARSHALL_UPDATE_MODULO === 0 ||
             matrixUpdates < 10
           if (shouldRecordStep) {
-            const node1 = allNodes[i]
-            const node2 = allNodes[j]
-            if (node1 && !node1.isWall) visitedNodesSet.add(node1)
-            if (node2 && !node2.isWall) visitedNodesSet.add(node2)
             steps.push({ type: 'update', node1, node2, k, matrixUpdates })
           }
         }
@@ -381,8 +383,16 @@ const createInitialAlgoStates = () => ({
 })
 
 const updateVisualizationState = (prevStates, algoKey, node) => {
-  const newState = { algoKey, [`${node.row}-${node.col}`]: true }
+  const key = `${node.row}-${node.col}`
+  const existing = prevStates.find((s) => s.algoKey === algoKey) || { algoKey }
+
+  const newState = {
+    ...existing,
+    [key]: true,
+  }
+
   const filtered = prevStates.filter((s) => s.algoKey !== algoKey)
+
   return [...filtered, newState]
 }
 
@@ -927,68 +937,74 @@ export default function GridComparisonMode() {
 
     const speedMultiplier = speed === 1 ? 1 : speed === 2 ? 2 : 4
 
-    const results = await Promise.all([
-      executeAlgorithm('dijkstra', speedMultiplier).then((metrics) => {
-        if (!mountedRef.current) return { key: 'dijkstra', metrics }
-        setAlgoStatus((prev) => ({
-          ...prev,
-          dijkstra: {
-            ...prev.dijkstra,
-            status: 'complete',
-            metrics: {
-              visited: metrics.visitedCount,
-              pathCost: metrics.pathCost,
-              visualizationTime: metrics.visualizationTime,
-              steps: metrics.relaxations,
-              score: metrics.score,
+    let results
+
+    try {
+      results = await Promise.all([
+        executeAlgorithm('dijkstra', speedMultiplier).then((metrics) => {
+          if (!mountedRef.current) return { key: 'dijkstra', metrics }
+          setAlgoStatus((prev) => ({
+            ...prev,
+            dijkstra: {
+              ...prev.dijkstra,
+              status: 'complete',
+              metrics: {
+                visited: metrics.visitedCount,
+                pathCost: metrics.pathCost,
+                visualizationTime: metrics.visualizationTime,
+                steps: metrics.relaxations,
+                score: metrics.score,
+              },
+              progress: 100,
+              liveMetrics: {},
             },
-            progress: 100,
-            liveMetrics: {},
-          },
-        }))
-        return { key: 'dijkstra', metrics }
-      }),
-      executeAlgorithm('bellmanford', speedMultiplier).then((metrics) => {
-        if (!mountedRef.current) return { key: 'bellmanford', metrics }
-        setAlgoStatus((prev) => ({
-          ...prev,
-          bellmanford: {
-            ...prev.bellmanford,
-            status: 'complete',
-            metrics: {
-              visited: metrics.visitedCount,
-              pathCost: metrics.pathCost,
-              visualizationTime: metrics.visualizationTime,
-              steps: metrics.relaxations,
-              score: metrics.score,
+          }))
+          return { key: 'dijkstra', metrics }
+        }),
+        executeAlgorithm('bellmanford', speedMultiplier).then((metrics) => {
+          if (!mountedRef.current) return { key: 'bellmanford', metrics }
+          setAlgoStatus((prev) => ({
+            ...prev,
+            bellmanford: {
+              ...prev.bellmanford,
+              status: 'complete',
+              metrics: {
+                visited: metrics.visitedCount,
+                pathCost: metrics.pathCost,
+                visualizationTime: metrics.visualizationTime,
+                steps: metrics.relaxations,
+                score: metrics.score,
+              },
+              progress: 100,
+              liveMetrics: {},
             },
-            progress: 100,
-            liveMetrics: {},
-          },
-        }))
-        return { key: 'bellmanford', metrics }
-      }),
-      executeAlgorithm('floydwarshall', speedMultiplier).then((metrics) => {
-        if (!mountedRef.current) return { key: 'floydwarshall', metrics }
-        setAlgoStatus((prev) => ({
-          ...prev,
-          floydwarshall: {
-            ...prev.floydwarshall,
-            status: 'complete',
-            metrics: {
-              visited: metrics.visitedCount,
-              pathCost: metrics.pathCost,
-              visualizationTime: metrics.visualizationTime,
-              steps: metrics.matrixUpdates,
-              score: metrics.score,
+          }))
+          return { key: 'bellmanford', metrics }
+        }),
+        executeAlgorithm('floydwarshall', speedMultiplier).then((metrics) => {
+          if (!mountedRef.current) return { key: 'floydwarshall', metrics }
+          setAlgoStatus((prev) => ({
+            ...prev,
+            floydwarshall: {
+              ...prev.floydwarshall,
+              status: 'complete',
+              metrics: {
+                visited: metrics.visitedCount,
+                pathCost: metrics.pathCost,
+                visualizationTime: metrics.visualizationTime,
+                steps: metrics.matrixUpdates,
+                score: metrics.score,
+              },
+              progress: 100,
+              liveMetrics: {},
             },
-            progress: 100,
-            liveMetrics: {},
-          },
-        }))
-        return { key: 'floydwarshall', metrics }
-      }),
-    ])
+          }))
+          return { key: 'floydwarshall', metrics }
+        }),
+      ])
+    } finally {
+      if (mountedRef.current) setIsRunning(false)
+    }
 
     if (!mountedRef.current) return
 
@@ -1003,7 +1019,6 @@ export default function GridComparisonMode() {
     })
 
     if (winnerAlgo) setWinner(winnerAlgo)
-    setIsRunning(false)
   }, [isRunning, speed, executeAlgorithm])
 
   const handleReset = useCallback(() => {
@@ -1025,10 +1040,7 @@ export default function GridComparisonMode() {
   )
 
   return (
-    <div
-      className="rounded-2xl border border-slate-700/60 p-4"
-      style={{ background: 'rgba(15,23,42,0.8)' }}
-    >
+    <div className="rounded-2xl border border-slate-700/60 p-4 bg-slate-900/80">
       <div className="flex items-center gap-3 flex-wrap">
         <span className="text-xs text-slate-400 font-medium">Speed</span>
         {speedButtons.map(({ label, val }) => (
