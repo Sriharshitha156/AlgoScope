@@ -226,6 +226,16 @@ function App() {
       ),
     },
     {
+      path: '/string-algorithms',
+      element: (
+        <Suspense fallback={<PageLoader />}>
+          <AppLayout>
+            <StringAlgoVisualizerPage />
+          </AppLayout>
+        </Suspense>
+      ),
+    },
+    {
       path: '*',
       element: (
         <Suspense fallback={<PageLoader />}>

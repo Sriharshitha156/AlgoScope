@@ -67,6 +67,13 @@ const ALGORITHMS = [
     link: '/math-theory',
   },
   {
+    title: 'String Algorithms',
+    description:
+      'Visualize KMP, Rabin-Karp, Z-Algorithm, and pattern matching techniques step-by-step.',
+    color: 'theme-card border-violet-500/30 hover:border-violet-400',
+    link: '/string-algorithms',
+  },
+  {
     title: 'Dynamic Programming',
     description:
       'LCS, 0/1 Knapsack, Coin Change, and LIS — watch the DP table fill step by step.',
