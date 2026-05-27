@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import SpeedSlider from '../SpeedSlider'
 import ComplexityCard from '../ComplexityCard'
 import CodePanel from '../visualizer/CodePanel'
@@ -38,6 +38,9 @@ const ALGO_TABS = [
 ]
 
 export const MathSoloVisualizer = () => {
+  useEffect(() => {
+    document.title = 'Math Theory | AlgoScope'
+  }, [])
   const [algo, setAlgo] = useState('gcd')
   const [speed, setSpeed] = useState(1)
   const [language, setLanguage] = useState('javascript')
