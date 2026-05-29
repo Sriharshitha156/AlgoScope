@@ -37,7 +37,7 @@ const cardVariants = {
 }
 
   const colorClasses =
-    color || 'theme-card theme-border hover:border-neutral-700'
+    color || 'theme-card theme-border hover:border-neutral-700' 
 
   return (
     <MotionLink
