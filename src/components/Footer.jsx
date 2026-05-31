@@ -35,10 +35,10 @@ const Footer = () => {
       color: 'hover:border-rose-500/30 text-rose-400 bg-rose-500/5',
     },
     {
-      name: 'Arrays',
+      name: 'Array Search',
       path: '/ldssearch',
-      desc: 'Kadane, Moore, sliding windows', // Fixed typo here
-      complexity: 'O(N)',
+      desc: 'Linear and Binary search visualization',
+      complexity: 'O(log N)',
       color: 'hover:border-emerald-500/30 text-emerald-400 bg-emerald-500/5',
     },
     {
