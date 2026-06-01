@@ -130,7 +130,7 @@ export const MathSoloVisualizer = () => {
         autoPlay: !isStepMode,
       })
     } else if (algo === 'sieve') {
-      loadSteps(generateSieveSteps(Number(sieveLimit)), {
+      loadSteps(generateSieveSteps(Math.floor(Number(sieveLimit))), {
         autoPlay: !isStepMode,
       })
     } else if (algo === 'fibonacci') {
@@ -372,10 +372,14 @@ export const MathSoloVisualizer = () => {
                   type="number"
                   min={10}
                   max={100}
+                  step={1}
                   value={sieveLimit}
                   onChange={(e) =>
                     setSieveLimit(
-                      Math.min(100, Math.max(10, Number(e.target.value)))
+                      Math.min(
+                        100,
+                        Math.max(10, Math.floor(Number(e.target.value)))
+                      )
                     )
                   }
                   className="w-full rounded-xl border border-slate-700 bg-slate-800 px-4 py-2.5 text-white outline-none focus:border-cyan-500 text-sm"

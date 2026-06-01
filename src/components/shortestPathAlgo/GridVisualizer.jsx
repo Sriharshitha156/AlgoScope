@@ -339,6 +339,7 @@ const GridVisualizer = ({ algorithm, runKey, speed }) => {
 
   const handleMouseInteraction = (row, col) => {
     if (running) return
+    clearPath()
     setGrid((prev) => {
       const node = prev[row][col]
       if (node.isStart || node.isEnd) return prev
