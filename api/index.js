@@ -24,15 +24,22 @@ const limiter = rateLimit({
 app.use(limiter)
 
 // CORS — restrict to trusted origins
+const frontendOrigin = process.env.FRONTEND_URL?.trim().replace(/\/+$/, '')
+
+if (process.env.NODE_ENV === 'production' && !frontendOrigin) {
+  throw new Error('FRONTEND_URL must be set in production')
+}
+
 const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  'http://localhost:5173',
-  'http://localhost:4173',
+  frontendOrigin,
+  ...(process.env.NODE_ENV !== 'production'
+    ? ['http://localhost:5173', 'http://localhost:4173']
+    : []),
 ].filter(Boolean)
 
 app.use(cors({
   origin: (origin, cb) => {
-    if (!origin || allowedOrigins.includes(origin) || !process.env.FRONTEND_URL) {
+    if (!origin || allowedOrigins.includes(origin)) {
       cb(null, true)
     } else {
       cb(new Error('Not allowed by CORS'))
