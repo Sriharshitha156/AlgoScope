@@ -66,6 +66,9 @@ const ChallengePage = lazy(() => import('./components/challenge/ChallengePage'))
 const OperatingSystemsPage = lazy(
   () => import('./components/operatingSystems/OperatingSystemsPage')
 )
+const CPUSchedulingPage = lazy(
+  () => import('./components/operatingSystems/CPUSchedulingPage')
+)
 
 // Simple fallback for Suspense
 const PageLoader = () => (
@@ -257,6 +260,16 @@ const router = createBrowserRouter([
       <Suspense fallback={<PageLoader />}>
         <AppLayout>
           <OperatingSystemsPage />
+        </AppLayout>
+      </Suspense>
+    ),
+  },
+  {
+    path: '/operating-systems/cpu-scheduling',
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <AppLayout notesKey="algo-notes-cpu-scheduling">
+          <CPUSchedulingPage />
         </AppLayout>
       </Suspense>
     ),
