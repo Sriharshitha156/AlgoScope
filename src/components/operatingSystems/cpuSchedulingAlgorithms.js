@@ -153,6 +153,10 @@ export function runSJF(processes) {
 }
 
 export function runRoundRobin(processes, timeQuantum = 2) {
+  if (!Number.isFinite(timeQuantum) || timeQuantum <= 0) {
+    throw new Error('timeQuantum must be a positive number')
+  }
+
   const processesCopy = processes.map((p, idx) => ({
     ...p,
     originalIndex: idx,
@@ -275,6 +279,9 @@ export function runRoundRobin(processes, timeQuantum = 2) {
       ganttData[i].start === ganttData[i - 1].end
     ) {
       finalGanttData[finalGanttData.length - 1].end = ganttData[i].end
+      finalGanttData[finalGanttData.length - 1].burstTime =
+        finalGanttData[finalGanttData.length - 1].end -
+        finalGanttData[finalGanttData.length - 1].start
     } else {
       finalGanttData.push({ ...ganttData[i] })
     }
@@ -500,6 +507,9 @@ export function runSRTF(processes) {
       ganttData[i].start === ganttData[i - 1].end
     ) {
       finalGanttData[finalGanttData.length - 1].end = ganttData[i].end
+      finalGanttData[finalGanttData.length - 1].burstTime =
+        finalGanttData[finalGanttData.length - 1].end -
+        finalGanttData[finalGanttData.length - 1].start
     } else {
       finalGanttData.push({ ...ganttData[i] })
     }
@@ -666,6 +676,9 @@ export function runMLQ(processes) {
       ganttData[i].start === ganttData[i - 1].end
     ) {
       finalGanttData[finalGanttData.length - 1].end = ganttData[i].end
+      finalGanttData[finalGanttData.length - 1].burstTime =
+        finalGanttData[finalGanttData.length - 1].end -
+        finalGanttData[finalGanttData.length - 1].start
     } else {
       finalGanttData.push({ ...ganttData[i] })
     }

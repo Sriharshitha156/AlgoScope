@@ -182,55 +182,58 @@ export default function CPUSchedulingPage() {
     completedSetRef.current = new Set()
   }
 
-  const animateFlowStep = useCallback((step, processesList) => {
-    if (!step) return
+  const animateFlowStep = useCallback(
+    (step, processesList) => {
+      if (!step) return
 
-    const arrived = processesList.filter((p) =>
-      step.arrivedPids.includes(p.pid)
-    )
-    setFlowArrival(arrived)
-
-    const readyProcs = step.readyQueue.map((r) => {
-      const proc = processesList.find((p) => p.pid === r.pid)
-      const rem = remainingTimeRef.current.get(r.pid)
-      return {
-        pid: r.pid,
-        arrivalTime: r.arrivalTime,
-        burstTime: rem !== undefined ? rem : proc?.burstTime,
-      }
-    })
-    setFlowReadyQueue(readyProcs)
-
-    const cpuProc = processesList.find((p) => p.pid === step.pid)
-    setFlowCPU(cpuProc ?? null)
-    setCpuRemainingTime(step.remainingAfter > 0 ? step.remainingAfter : 0)
-    setCPUExplanation(buildExplanation(step))
-
-    remainingTimeRef.current.set(step.pid, step.remainingAfter)
-
-    const segDuration = step.segmentBurst * 100
-
-    const timeoutId = setTimeout(() => {
-      if (step.willComplete && !completedSetRef.current.has(step.pid)) {
-        completedSetRef.current.add(step.pid)
-        setFlowCompleted((prev) => {
-          if (prev.some((p) => p.pid === step.pid)) return prev
-          return [...prev, cpuProc ?? { pid: step.pid }]
-        })
-      }
-
-      if (step.isLastSegment) {
-        setFlowCPU(null)
-        setCpuRemainingTime(null)
-        setFlowReadyQueue([])
-      }
-      completionTimeoutsRef.current = completionTimeoutsRef.current.filter(
-        (id) => id !== timeoutId
+      const arrived = processesList.filter((p) =>
+        step.arrivedPids.includes(p.pid)
       )
-    }, segDuration)
+      setFlowArrival(arrived)
 
-    completionTimeoutsRef.current.push(timeoutId)
-  }, [])
+      const readyProcs = step.readyQueue.map((r) => {
+        const proc = processesList.find((p) => p.pid === r.pid)
+        const rem = remainingTimeRef.current.get(r.pid)
+        return {
+          pid: r.pid,
+          arrivalTime: r.arrivalTime,
+          burstTime: rem !== undefined ? rem : proc?.burstTime,
+        }
+      })
+      setFlowReadyQueue(readyProcs)
+
+      const cpuProc = processesList.find((p) => p.pid === step.pid)
+      setFlowCPU(cpuProc ?? null)
+      setCpuRemainingTime(step.remainingAfter > 0 ? step.remainingAfter : 0)
+      setCPUExplanation(buildExplanation(step))
+
+      remainingTimeRef.current.set(step.pid, step.remainingAfter)
+
+      const segDuration = (step.segmentBurst * 100) / playbackSpeed
+
+      const timeoutId = setTimeout(() => {
+        if (step.willComplete && !completedSetRef.current.has(step.pid)) {
+          completedSetRef.current.add(step.pid)
+          setFlowCompleted((prev) => {
+            if (prev.some((p) => p.pid === step.pid)) return prev
+            return [...prev, cpuProc ?? { pid: step.pid }]
+          })
+        }
+
+        if (step.isLastSegment) {
+          setFlowCPU(null)
+          setCpuRemainingTime(null)
+          setFlowReadyQueue([])
+        }
+        completionTimeoutsRef.current = completionTimeoutsRef.current.filter(
+          (id) => id !== timeoutId
+        )
+      }, segDuration)
+
+      completionTimeoutsRef.current.push(timeoutId)
+    },
+    [playbackSpeed]
+  )
 
   const handleRunSimulation = () => {
     let result
@@ -287,7 +290,9 @@ export default function CPUSchedulingPage() {
   useEffect(() => {
     if (isPlaying && currentStep < playbackSteps.length) {
       const step = playbackSteps[currentStep]
-      const delay = step ? step.segmentBurst * 100 + 400 : 1000 / playbackSpeed
+      const delay = step
+        ? (step.segmentBurst * 100 + 400) / playbackSpeed
+        : 1000 / playbackSpeed
       playbackTimerRef.current = setTimeout(playNextStep, delay)
     }
     return () => {
