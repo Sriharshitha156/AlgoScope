@@ -80,6 +80,9 @@ const DPOptimizationJourneyPage = lazy(
 const SlidingWindowVisualizerPage = lazy(
   () => import('./components/slidingwindow/SlidingWindowVisualizer')
 )
+const TwoPointerVisualizerPage = lazy(
+  () => import('./components/twoPointer/TwoPointerVisualizer')
+)
 const GreedyVisualizerPage = lazy(
   () => import('./components/greedyAlgo/VisualizerPage')
 )
