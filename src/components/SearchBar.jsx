@@ -141,13 +141,13 @@ const ALGORITHMS = [
     id: 'linear',
     name: 'Linear Search',
     category: 'Array Search',
-    route: '/ldssearch?algo=linear',
+    route: '/ldssearch?algo=linearSearch',
   },
   {
     id: 'binary',
     name: 'Binary Search',
     category: 'Array Search',
-    route: '/ldssearch?algo=binary',
+    route: '/ldssearch?algo=binarySearch',
   },
   {
     id: 'kadane',
