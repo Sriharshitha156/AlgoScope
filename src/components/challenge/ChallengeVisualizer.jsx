@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const MAX_QUESTIONS = 10
@@ -465,23 +465,31 @@ function createPicker() {
   let remaining = []
 
   return function pick() {
-    if (remaining.length < MAX_QUESTIONS) {
+    if (remaining.length === 0) {
       const fresh = [...QUESTION_BANK]
       for (let i = fresh.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
         ;[fresh[i], fresh[j]] = [fresh[j], fresh[i]]
       }
-      remaining = [...fresh, ...remaining]
+      remaining = fresh
     }
     const batch = remaining.splice(0, MAX_QUESTIONS)
+    if (batch.length < MAX_QUESTIONS) {
+      const fresh = [...QUESTION_BANK]
+      for (let i = fresh.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[fresh[i], fresh[j]] = [fresh[j], fresh[i]]
+      }
+      remaining = fresh
+      batch.push(...remaining.splice(0, MAX_QUESTIONS - batch.length))
+    }
     return batch
   }
 }
 
 export default function ChallengeVisualizer() {
-  const picker = useRef(createPicker())
-
-  const [questions, setQuestions] = useState(() => picker.current())
+const [pick] = useState(() => createPicker())
+const [questions, setQuestions] = useState(() => pick())
   const [index, setIndex] = useState(0)
   const [score, setScore] = useState(0)
   const [streak, setStreak] = useState(0)
@@ -498,7 +506,7 @@ export default function ChallengeVisualizer() {
   }, [index, questions.length])
 
   const restart = () => {
-    setQuestions(picker.current())
+    setQuestions(pick())
     setIndex(0)
     setScore(0)
     setStreak(0)
