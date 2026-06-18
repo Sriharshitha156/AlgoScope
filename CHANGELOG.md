@@ -5,38 +5,96 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.13.0](https://github.com/algoscope-hq/AlgoScope/compare/v1.12.0...v1.13.0) (2026-06-18)
+## [1.13.0] - 2026-06-18
 
+### Added
 
-### Features
+- expand MCQ bank and prevent repeated questions on restart
+- add Linked List visualization module (closes #649)
+- add RR, Priority, SRTF and MLQ scheduling algorithms
+- advanced trees visualizer improvements and lint fixes
 
-* add Linked List visualization module (closes [#649](https://github.com/algoscope-hq/AlgoScope/issues/649)) ([d73e601](https://github.com/algoscope-hq/AlgoScope/commit/d73e601b61c942953742afa119e8831518e39801))
-* add RR, Priority, SRTF and MLQ scheduling algorithms ([7f71ff7](https://github.com/algoscope-hq/AlgoScope/commit/7f71ff72bcef0e0c10617679ce81d230a9d9f7e9))
-* expand MCQ bank and prevent repeated questions on restart ([7e941c1](https://github.com/algoscope-hq/AlgoScope/commit/7e941c17a991f8f7bb86259531b41529e272b3bd))
+### Fixed
 
+- format & lint
+- address CodeRabbit review comments on picker logic and useRef
+- correct array search algorithm names in global search
+- format App.jsx, Home.jsx, and CanvasSearching.jsx with LF endOfLine
+- import TwoPointerVisualizerPage and format code style
+- remove overly broad src/**/*.js pattern from ignores
+- format & lint
+- format & lint
+- format & lint
+- highlight navbar Explore button when on algorithm sub-pages
+- hide overlapping data dots on complexity graph
+- add docstrings to LinkedListIV and complete C/Rust snippets in adtSources
+- close explore dropdown when search modal opens
+- synchronize playback timers
+- address CodeRabbit scheduling review comments
+- format step playback hook and exclude nested dist in eslint config
+- remove unused setVersion and clean up TrieVisualizer
 
-### Bug Fixes
+### Changed
 
-* add docstrings to LinkedListIV and complete C/Rust snippets in adtSources ([d8ed3fd](https://github.com/algoscope-hq/AlgoScope/commit/d8ed3fddbeefa00ac618b1f9b9522043830324ac))
-* address CodeRabbit review comments on picker logic and useRef ([566e1f6](https://github.com/algoscope-hq/AlgoScope/commit/566e1f6003eb40cb99725f8029eb1818dd83328c))
-* address CodeRabbit scheduling review comments ([1765b27](https://github.com/algoscope-hq/AlgoScope/commit/1765b27289b2b1ad4ec4db002080fec308e2c189))
-* close explore dropdown when search modal opens ([dcf396b](https://github.com/algoscope-hq/AlgoScope/commit/dcf396b799b010d27ac583790f861ba5b5f56c4f))
-* correct array search algorithm names in global search ([1757fbb](https://github.com/algoscope-hq/AlgoScope/commit/1757fbb45e13c6dc9d155faf470be66f7b560300))
-* **eslint:** remove overly broad src/**/*.js pattern from ignores ([d749c99](https://github.com/algoscope-hq/AlgoScope/commit/d749c99c6abfe0d0d9c65968c38d92af08ce8b20))
-* format & lint ([6efa9a3](https://github.com/algoscope-hq/AlgoScope/commit/6efa9a3cf176273486493bd9dee5744a82e26484))
-* format & lint ([3f275a4](https://github.com/algoscope-hq/AlgoScope/commit/3f275a44025ebaa63624cf46107005955cbe1831))
-* format & lint ([dc8964e](https://github.com/algoscope-hq/AlgoScope/commit/dc8964eba426ea7e628c8a5170bd44d8e8c1a221))
-* format & lint ([465498f](https://github.com/algoscope-hq/AlgoScope/commit/465498f1a3bd9b2bfd8b94f554c272f32b02bbcf))
-* **formatting:** format App.jsx, Home.jsx, and CanvasSearching.jsx with LF endOfLine ([fbbb90d](https://github.com/algoscope-hq/AlgoScope/commit/fbbb90dd4d755dc63b94c0af8713d8a455add3d3))
-* hide overlapping data dots on complexity graph ([fc48af1](https://github.com/algoscope-hq/AlgoScope/commit/fc48af1a4f523916c33aa032f40a1132e221ae2f)), closes [#421](https://github.com/algoscope-hq/AlgoScope/issues/421)
-* highlight navbar Explore button when on algorithm sub-pages ([2265d73](https://github.com/algoscope-hq/AlgoScope/commit/2265d73b2b6ccb04ee23db0a43f375c71ea79366))
-* synchronize playback timers ([c1df673](https://github.com/algoscope-hq/AlgoScope/commit/c1df673426b3b85fb38365caa3313a3d09a8ea3d))
-* **two-pointer:** import TwoPointerVisualizerPage and format code style ([6d744a5](https://github.com/algoscope-hq/AlgoScope/commit/6d744a507c4a14b7ddb9147ca0d5367303521e1b))
+- lazy load vis-network to reduce render-blocking resources
+- memoize closeExploreMenu with useCallback
 
+### 📂 Changed Files
 
-### Performance Improvements
-
-* lazy load vis-network to reduce render-blocking resources ([1145962](https://github.com/algoscope-hq/AlgoScope/commit/11459623e88400a0f8c9e3c0db652b64173bc902))
+```
+- 📁 **src/**
+  - 📁 **algorithms/**
+    - 📁 **greedy/**
+      - ➕ fractionalKnapsackSteps.js
+      - ➕ greedySources.js
+      - ➕ huffmanCodingSteps.js
+    - 📁 **trees/**
+      - ➕ avlTree.js
+      - ➕ segmentTree.js
+      - ➕ trie.js
+  - 📁 **components/**
+    - 📁 **advancedTrees/**
+      - ➕ AVLTreeVisualizer.jsx
+      - ➕ BinaryTreeWithTrie.jsx
+      - ➕ SegmentTreeVisualizer.jsx
+      - ➕ TrieVisualizer.jsx
+    - 📁 **challenge/**
+      - ✏️ ChallengeVisualizer.jsx
+    - 📁 **dataStructures/**
+      - ✏️ adtSources.js
+      - ✏️ DSLayout.jsx
+      - ➕ LinkedListIV.jsx
+    - 📁 **greedyAlgo/**
+      - ➕ GreedyAlgorithmCard.jsx
+      - ➕ GreedyBlock.jsx
+      - ➕ HuffmanVisualizer.jsx
+      - ➕ KnapsackVisualizer.jsx
+      - ➕ VisualizerPage.jsx
+    - 📁 **operatingSystems/**
+      - ✏️ cpuSchedulingAlgorithms.js
+      - ➕ cpuSchedulingData.js
+      - ✏️ CPUSchedulingPage.jsx
+    - 📁 **searchAlgo/**
+      - ✏️ CanvasSearching.jsx
+    - 📁 **visualizer/**
+      - ✏️ useStepPlayback.js
+    - ✏️ ComplexityGraph.jsx
+    - ✏️ Home.jsx
+    - ✏️ Navbar.jsx
+    - ✏️ SearchBar.jsx
+  - 📁 **data/**
+    - ✏️ complexityMap.js
+  - 📁 **pages/**
+    - ➕ AdvancedTreesPage.jsx
+  - ✏️ App.jsx
+  - ✏️ main.jsx
+- ✏️ CHANGELOG.md
+- ✏️ eslint.config.js
+- ✏️ index.html
+- ✏️ package-lock.json
+- ✏️ package.json
+- ✏️ README.md
+```
 
 ## [1.12.0] - 2026-06-13
 
@@ -1170,3 +1228,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ➕ vite.config.js
 - ➕ yarn.lock
 ```
+
