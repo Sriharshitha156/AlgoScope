@@ -309,7 +309,7 @@ const CircularLinkedList = () => {
   return (
     <div className="flex flex-col gap-6">
       <p className="text-slate-400 text-sm">
-        The <span className="text-green-400">tail's next pointer</span> points back to the <span className="text-green-400">head</span> — forming a circle with no null end.
+        The <span className="text-green-400">tail&apos;s next pointer</span> points back to the <span className="text-green-400">head</span> — forming a circle with no null end.
       </p>
 
       <Controls
@@ -440,7 +440,7 @@ const CircularDoublyLinkedList = () => {
   return (
     <div className="flex flex-col gap-6">
       <p className="text-slate-400 text-sm">
-        Combines doubly and circular — <span className="text-orange-400">prev & next</span> pointers, and tail connects back to head (and head's prev to tail).
+        Combines doubly and circular — <span className="text-orange-400">prev & next</span> pointers, and tail connects back to head (and head&apos;s prev to tail).
       </p>
 
       <Controls
