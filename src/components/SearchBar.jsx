@@ -234,6 +234,47 @@ const ALGORITHMS = [
     route: '/adt?type=tree',
   },
   {
+    id: 'linkedlist',
+    name: 'Linked List',
+    category: 'Data Structures',
+    route: '/adt?type=linkedlist',
+    keywords: ['linked list', 'singly', 'doubly', 'circular', 'circular doubly', 'pointers', 'nodes'],
+  },
+  // Operating Systems
+  {
+    id: 'cpu-scheduling',
+    name: 'CPU Scheduling',
+    category: 'Operating Systems',
+    route: '/operating-systems/cpu-scheduling',
+    keywords: ['fcfs', 'sjf', 'round robin', 'priority scheduling', 'cpu'],
+  },
+  {
+    id: 'page-replacement',
+    name: 'Page Replacement',
+    category: 'Operating Systems',
+    route: '/operating-systems/page-replacement',
+    keywords: ['fifo', 'lru', 'optimal', 'page fault', 'memory'],
+  },
+  {
+    id: 'disk-scheduling',
+    name: 'Disk Scheduling',
+    category: 'Operating Systems',
+    route: '/operating-systems/disk-scheduling',
+    keywords: ['scan', 'c-scan', 'sstf', 'disk head', 'fcfs disk'],
+  },
+  {
+    id: 'practice',
+    name: 'Practice Sandbox',
+    category: 'General',
+    route: '/practice',
+  },
+  {
+    id: 'favorites',
+    name: 'Favorites',
+    category: 'General',
+    route: '/favorites',
+  },
+  {
     id: 'dsu',
     name: 'Disjoint Set Union',
     category: 'Data Structures',
