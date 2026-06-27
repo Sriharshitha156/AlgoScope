@@ -237,7 +237,7 @@ const ALGORITHMS = [
     id: 'linkedlist',
     name: 'Linked List',
     category: 'Data Structures',
-    route: '/adt?type=linkedlist',
+    route: '/adt?type=linked-list',
     keywords: [
       'linked list',
       'singly',
