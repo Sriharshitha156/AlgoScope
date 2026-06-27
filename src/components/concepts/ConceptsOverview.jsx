@@ -51,7 +51,8 @@ export const ConceptsOverview = () => {
             All Concepts
           </h1>
           <p className="theme-text-subtle">
-            {total} algorithms , data structures and system concepts, all in one place.
+            {total} algorithms , data structures and system concepts, all in one
+            place.
           </p>
         </div>
 
